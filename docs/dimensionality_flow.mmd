@@ -1,0 +1,43 @@
+
+    
+graph TD
+
+classDef functional fill:#f9f,stroke:#333,stroke-width:2px;
+classDef dimensional fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5;
+
+    A["Input Image: n x n (2D)"] --> B["Conv2D (c1 convolutions)"]
+    B --> C["(n-2) x (n-2) x c1 (3D)"]
+    C --> D["MaxPool2D (m1xm1)"]
+    D --> E["(n-2)/m1 x (n-2)/m1 x c1 (3D)"]
+    E --> F["Conv2D (c2 convolutions)"]
+    F --> G["((n-2)/m1)-2 x ((n-2)/m1)-2 x c2 (3D)"]
+    G --> H["MaxPool2D (m2xm2)"]
+    H --> I["(((n-2)/m1)-2)/m2 x (((n-2)/m1)-2)/m2 x c2 (3D)"]
+    I --> J["Flatten"]
+    J --> K["(((n-2)/m1)-2)/m2 x (((n-2)/m1)-2)/m2 x c2 (1D)"]
+    K --> L["Dense (d1)"]
+    L --> M["1 x d1 (1D)"]
+    M --> N["Dense (d2)"]
+    N --> O["Output Probability vector: 1 x d2 (1D)"]
+    
+    
+    class A dimensional;
+    class B functional;
+    class C dimensional;
+    class D functional;
+    class E dimensional;
+    class F functional;
+    class G dimensional;
+    class H functional;
+    class I dimensional;
+    class J functional;
+    class K dimensional;
+    class L functional;
+    class M dimensional;
+    class N functional;
+    class O dimensional;
+
+    
+    
+    
+    
