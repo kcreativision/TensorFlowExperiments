@@ -1,6 +1,5 @@
 ---
 title: "Introduction to TensorFlow"
-author: "ElephantHead"
 date: "07/10/2020"
 output: html_document
 params:
@@ -9,6 +8,9 @@ params:
   save_file: default
 ---
 
+```{r setup, include=FALSE}
+library(DiagrammeR)
+```
 
 This is my course notes for [this Coursera course](https://www.coursera.org/learn/introduction-tensorflow/). I would be
 adding more details as I go through other courses/resources connected to this topic.
@@ -17,7 +19,8 @@ adding more details as I go through other courses/resources connected to this to
 The general dimensionality flow of building a dense neural network is as follows:
 
 ```{r, echo=FALSE, results='asis'}
-htmltools::includeHTML("../dimensionality_flow.html")
+DiagrammeR::mermaid("dimensionality_flow.mmd", width=1500, height=1200)
 ```
 
-The diagram is created using Mermaid. 
+The diagram is created using [Mermaid](https://rich-iannone.github.io/DiagrammeR/mermaid.html). 
+
