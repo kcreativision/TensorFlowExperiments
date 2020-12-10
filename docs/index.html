@@ -10,7 +10,6 @@
 
 
 
-<meta name="date" content="2020-07-10" />
 
 <title>Introduction to TensorFlow</title>
 
@@ -2923,17 +2922,22 @@ summary {
 
 
 <h1 class="title toc-ignore">Introduction to TensorFlow</h1>
-<h4 class="date">07/10/2020</h4>
 
 </div>
 
 
-<p>This is my course notes for <a href="https://www.coursera.org/learn/introduction-tensorflow/">this Coursera course</a>. I would be adding more details as I go through other courses/resources connected to this topic.</p>
+<div id="contents" class="section level3">
+<h3>Contents</h3>
+<p>The following TensorFlow trials are checked with a few datasets available in Keras API: 1. TensorFlow with basic dense layers (128, 10) on FMNIST dataset.<br />
+Check its general structure, summary, TensorBoard outputs and my analysis <a href>here</a> 2. TensorFlow with basic dense layers (128, 10) on MNIST dataset.<br />
+Check its general structure, summary, TensorBoard outputs and my analysis <a href>here</a></p>
+<p>All these trials are available for analyses on TensorBoard here</p>
+</div>
 <div id="dimensionality-flow" class="section level3">
 <h3>Dimensionality Flow</h3>
 <p>The general dimensionality flow of building a dense neural network is as follows:</p>
-<div id="htmlwidget-5367943c59f04129aeb1" style="width:1500px;height:1200px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5367943c59f04129aeb1">{"x":{"diagram":"  \ngraph TD\n\nclassDef functional fill:#f9f,stroke:#333,stroke-width:2px;\nclassDef dimensional fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5;\n\n    A[\"Input Image: n x n (2D)\"] --> B[\"Conv2D (c1 convolutions)\"]\n    B --> C[\"(n-2) x (n-2) x c1 (3D)\"]\n    C --> D[\"MaxPool2D (m1xm1)\"]\n    D --> E[\"(n-2)/m1 x (n-2)/m1 x c1 (3D)\"]\n    E --> F[\"Conv2D (c2 convolutions)\"]\n    F --> G[\"((n-2)/m1)-2 x ((n-2)/m1)-2 x c2 (3D)\"]\n    G --> H[\"MaxPool2D (m2xm2)\"]\n    H --> I[\"(((n-2)/m1)-2)/m2 x (((n-2)/m1)-2)/m2 x c2 (3D)\"]\n    I --> J[\"Flatten\"]\n    J --> K[\"(((n-2)/m1)-2)/m2 x (((n-2)/m1)-2)/m2 x c2 (1D)\"]\n    K --> L[\"Dense (d1)\"]\n    L --> M[\"1 x d1 (1D)\"]\n    M --> N[\"Dense (d2)\"]\n    N --> O[\"Output Probability vector: 1 x d2 (1D)\"]\n    \n    \n    class A dimensional;\n    class B functional;\n    class C dimensional;\n    class D functional;\n    class E dimensional;\n    class F functional;\n    class G dimensional;\n    class H functional;\n    class I dimensional;\n    class J functional;\n    class K dimensional;\n    class L functional;\n    class M dimensional;\n    class N functional;\n    class O dimensional;\n\n    \n    \n    "},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c9f7ef8ed416da2d2368" style="width:1500px;height:1200px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c9f7ef8ed416da2d2368">{"x":{"diagram":"  \ngraph TD\n\nclassDef functional fill:#f9f,stroke:#333,stroke-width:2px;\nclassDef dimensional fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5;\n\n    A[\"Input Image: n x n (2D)\"] --> B[\"Conv2D (c1 convolutions)\"]\n    B --> C[\"(n-2) x (n-2) x c1 (3D)\"]\n    C --> D[\"MaxPool2D (m1xm1)\"]\n    D --> E[\"(n-2)/m1 x (n-2)/m1 x c1 (3D)\"]\n    E --> F[\"Conv2D (c2 convolutions)\"]\n    F --> G[\"((n-2)/m1)-2 x ((n-2)/m1)-2 x c2 (3D)\"]\n    G --> H[\"MaxPool2D (m2xm2)\"]\n    H --> I[\"(((n-2)/m1)-2)/m2 x (((n-2)/m1)-2)/m2 x c2 (3D)\"]\n    I --> J[\"Flatten\"]\n    J --> K[\"(((n-2)/m1)-2)/m2 x (((n-2)/m1)-2)/m2 x c2 (1D)\"]\n    K --> L[\"Dense (d1)\"]\n    L --> M[\"1 x d1 (1D)\"]\n    M --> N[\"Dense (d2)\"]\n    N --> O[\"Output Probability vector: 1 x d2 (1D)\"]\n    \n    \n    class A dimensional;\n    class B functional;\n    class C dimensional;\n    class D functional;\n    class E dimensional;\n    class F functional;\n    class G dimensional;\n    class H functional;\n    class I dimensional;\n    class J functional;\n    class K dimensional;\n    class L functional;\n    class M dimensional;\n    class N functional;\n    class O dimensional;\n\n    \n    \n    "},"evals":[],"jsHooks":[]}</script>
 <p>The diagram is created using <a href="https://rich-iannone.github.io/DiagrammeR/mermaid.html">Mermaid</a>.</p>
 </div>
 
