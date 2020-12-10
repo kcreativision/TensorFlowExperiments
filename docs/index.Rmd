@@ -1,6 +1,5 @@
 ---
 title: "Introduction to TensorFlow"
-date: "07/10/2020"
 output: html_document
 params:
   input_folder: default
@@ -12,8 +11,16 @@ params:
 library(DiagrammeR)
 ```
 
-This is my course notes for [this Coursera course](https://www.coursera.org/learn/introduction-tensorflow/). I would be
-adding more details as I go through other courses/resources connected to this topic.
+### Contents
+The following TensorFlow trials are checked with a few datasets available in Keras API:
+1. TensorFlow with basic dense layers (128, 10) on FMNIST dataset.    
+    Check its general structure, summary, TensorBoard outputs and my analysis [here]()
+2. TensorFlow with basic dense layers (128, 10) on MNIST dataset.   
+    Check its general structure, summary, TensorBoard outputs and my analysis [here]()
+
+
+All these trials are available for analyses on TensorBoard here
+
 
 ### Dimensionality Flow
 The general dimensionality flow of building a dense neural network is as follows:
