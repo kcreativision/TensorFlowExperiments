@@ -11,23 +11,36 @@ params:
 library(DiagrammeR)
 ```
 
-### Contents
-The following TensorFlow trials are checked with a few datasets available in Keras API:
+### Structure of this document
+TensorFlow using Keras API comes with some great inbuilt resources (like data, logs) that we explore in this document. We use the datasets available in Keras API and try several implementations of shallow, deep and convolutional neural nets. To be systematic in our approach, each of these trials would include these notes(under progress):     
+
+- Dimensionality Flow (using [Mermaid](https://rich-iannone.github.io/DiagrammeR/mermaid.html) diagrams)    
+- Model Compile History     
+- TensorBoard published outputs    
+- My analysis 
+
+
+### Trials
+The following TensorFlow trials are carried out on a few datasets available in Keras API:    
+
 1. TensorFlow with basic dense layers (128, 10) on FMNIST dataset.    
-    Check its general structure, summary, TensorBoard outputs and my analysis [here]()
+    Check its general structure, summary, TensorBoard outputs and my analysis [here](basic_dense_fmnist.html)     
+    
 2. TensorFlow with basic dense layers (128, 10) on MNIST dataset.   
-    Check its general structure, summary, TensorBoard outputs and my analysis [here]()
+    Check its general structure, summary, TensorBoard outputs and my analysis [here](basic_dense_mnist.html)      
 
 
-All these trials are available for analyses on TensorBoard here
+### Notes
 
+***
+I have used several technologies in creating these trials and documentation. I am planning to create usage documents for each of those technologies specifically. Stay tuned for more updates.     
 
-### Dimensionality Flow
-The general dimensionality flow of building a dense neural network is as follows:
+- Code flow documentation     
 
-```{r, echo=FALSE, results='asis'}
-DiagrammeR::mermaid("dimensionality_flow.mmd", width=1500, height=1200)
-```
+- Wrapping the package with docker    
 
-The diagram is created using [Mermaid](https://rich-iannone.github.io/DiagrammeR/mermaid.html). 
+- Aspect Oriented Programming using Python    
+
+- Using RMD for html documents    
+***
 

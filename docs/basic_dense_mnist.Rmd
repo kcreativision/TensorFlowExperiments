@@ -1,0 +1,27 @@
+---
+title: "basic_dense_MNIST"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(DiagrammeR)
+```
+
+## TensorFlow with basic dense layers (128, 10) on MNIST dataset
+
+### Dimensionality Flow
+
+
+```{r, echo=FALSE, results='asis'}
+DiagrammeR::mermaid("basic_dense_dimflow.mmd", width=900, height=100)
+```
+
+
+### Model Compile History
+
+***
+```{r comment='', echo=FALSE}
+cat(readLines('../../../TensorFlow/logs/fit/mnist_basic_dense_10epochs/train_report.txt'), sep = '\n')
+```
+
+

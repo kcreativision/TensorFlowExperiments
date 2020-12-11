@@ -1,0 +1,17 @@
+---
+title: "CNN_dense_FMNIST"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(DiagrammeR)
+```
+
+## TensorFlow with Convolutional and dense layers on FMNIST dataset
+
+### Dimensionality Flow
+The general dimensionality flow of building a dense neural network is as follows:
+
+```{r, echo=FALSE, results='asis'}
+DiagrammeR::mermaid("dimensionality_flow.mmd", width=1500, height=1200)
+```

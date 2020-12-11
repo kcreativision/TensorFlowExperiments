@@ -1,0 +1,25 @@
+  
+graph LR
+
+classDef functional fill:#f9f,stroke:#333,stroke-width:2px;
+classDef dimensional fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5;
+
+    A["Input Image: n x n (2D)"] --> J["Flatten"]
+    J --> K["n**2 x 1 (1D)"]
+    K --> L["Dense (d1)"]
+    L --> M["d1 x 1 (1D)"]
+    M --> N["Dense (d2)"]
+    N --> O["Output Probability vector: d2 x 1 (1D)"]
+    
+    
+    class A dimensional;
+    class J functional;
+    class K dimensional;
+    class L functional;
+    class M dimensional;
+    class N functional;
+    class O dimensional;
+
+    
+    
+    

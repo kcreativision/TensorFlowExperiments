@@ -146,7 +146,7 @@ class TF(object):
 
         filename = log_dir + '/train_report.txt'
         with open(filename, 'w+') as fh:
-            fh.write('\n\n\n' + '#'*20 + '\ndata statistics: \n' + '#'*20 + '\n')
+            fh.write('\n' + '#'*20 + '\ndata statistics: \n' + '#'*20 + '\n')
             fh.write(self.base_stats)
 
             fh.write('\n\n\n' + '#' * 20 + '\n' + 'model fit history: \n' + '#' * 20 + '\n')
@@ -164,6 +164,7 @@ class TF(object):
 
             fh.write('\n\n\n' + '#' * 20 + '\n' + 'model evaluate history: \n' + '#' * 20 + '\n')
             fh.write('loss: {0:=0.4f} - accuracy: {1:=0.4f}'.format(eval_history[0], eval_history[1]))
+            fh.write('\n')
 
     def build_model(self):
         if self.params['mode'] == 'basic_dense':
