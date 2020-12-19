@@ -6,13 +6,14 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="tensorflow_experiments_kc",
     version="0.0.1",
-    author="KC_ElephantHead",
+    author="K_C_Vision",
     author_email="",
     description="A small package to try out TensorFlow",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="",
     packages=setuptools.find_packages(),
+    install_requires=['tensorflow==2.3.1', 'numpy==1.18.5', 'argparse', 'datetime', 'pathlib'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

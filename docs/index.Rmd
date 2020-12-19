@@ -42,5 +42,5 @@ I have used several technologies in creating these trials and documentation. I a
 - Aspect Oriented Programming using Python    
 
 - Using RMD for html documents    
-***
+
 

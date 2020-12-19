@@ -24,4 +24,3 @@ DiagrammeR::mermaid("basic_dense_dimflow.mmd", width=900, height=100)
 cat(readLines('../../../TensorFlow/logs/fit/mnist_basic_dense_10epochs/train_report.txt'), sep = '\n')
 ```
 
-
