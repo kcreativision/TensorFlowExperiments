@@ -5,6 +5,7 @@ import datetime
 from pathlib import Path
 import shutil
 import os
+from tensorflow_exps import log_utils
 
 
 class AccuracyCallback(tf.keras.callbacks.Callback):
@@ -28,6 +29,7 @@ class TF(object):
         # self.data_stats()
         self.model = None
         self.base_stats = ''
+        self.log_dir = ''
 
     def init(self):
         self.read_data()
@@ -112,11 +114,11 @@ class TF(object):
         # TODO check binary_cross_entropy for binary classification
         # TODO check RMSProp as optimizer as we can tweak learning rate
         self.model.compile(optimizer=self.params['tf_compile']['optimizer'],
-                      loss=self.params['tf_compile']['loss'],
-                      metrics=self.params['tf_compile']['metrics'])
+                           loss=self.params['tf_compile']['loss'],
+                           metrics=self.params['tf_compile']['metrics'])
         print(self.model.summary)
         if self.params['callback'] == 'accuracy':
-            self.model.fit(self.x_train , self.y_train, epochs=10, callbacks=[AccuracyCallback])
+            self.model.fit(self.x_train, self.y_train, epochs=10, callbacks=[AccuracyCallback])
         elif self.params['callback'] is None:
             self.model.fit(self.x_train, self.y_train, epochs=10)
 
@@ -129,24 +131,14 @@ class TF(object):
                            loss=self.params['tf_compile']['loss'],
                            metrics=self.params['tf_compile']['metrics'])
 
-        log_dir = self.file_info['save_loc'] + \
-                  "logs/fit/{0}_basic_dense_{1}epochs".format(self.params['training_data'],
-                                                              self.params['tf_compile']['epochs']) + \
-                  self.params['log_dir_suffix']
-        if Path(log_dir).exists() and Path(log_dir).is_dir():
-            print('log directory already exists, deleting {0}'.format(log_dir))
-            shutil.rmtree(log_dir)
-        print('creating log directory {0}'.format(log_dir))
-        os.makedirs(log_dir)
-
-        tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+        tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=self.log_dir, histogram_freq=1)
         fit_history = self.model.fit(self.x_train, self.y_train, epochs=self.params['tf_compile']['epochs'],
-                       callbacks=[tensorboard_callback], verbose=True)
+                                     callbacks=[tensorboard_callback], verbose=True)
         eval_history = self.model.evaluate(self.x_test, self.y_test, verbose=True)
 
-        filename = log_dir + '/train_report.txt'
+        filename = self.log_dir + '/train_report.txt'
         with open(filename, 'w+') as fh:
-            fh.write('\n' + '#'*20 + '\ndata statistics: \n' + '#'*20 + '\n')
+            fh.write('\n' + '#' * 20 + '\ndata statistics: \n' + '#' * 20 + '\n')
             fh.write(self.base_stats)
 
             fh.write('\n\n\n' + '#' * 20 + '\n' + 'model fit history: \n' + '#' * 20 + '\n')
@@ -156,10 +148,10 @@ class TF(object):
 
             fh.write('\nloss, accuracy metrics: \n')
             for i in fit_history.epoch:
-                fh.write('Epoch {0}/{1} - loss: {2:=0.4f} - accuracy: {3:=0.4f} \n'.format(i, len(fit_history.epoch),
-                         fit_history.history['loss'][i], fit_history.history['accuracy'][i]))
+                fh.write('Epoch {0}/{1} - loss: {2:=0.4f} - accuracy: {3:=0.4f} \n'.format(
+                    i, len(fit_history.epoch), fit_history.history['loss'][i], fit_history.history['accuracy'][i]))
 
-            fh.write('\n\n\n' + '#'*20 + '\n' + 'model summary: \n' + '#'*20 + '\n')
+            fh.write('\n\n\n' + '#' * 20 + '\n' + 'model summary: \n' + '#' * 20 + '\n')
             self.model.summary(print_fn=lambda x: fh.write(x + '\n'), line_length=80)
 
             fh.write('\n\n\n' + '#' * 20 + '\n' + 'model evaluate history: \n' + '#' * 20 + '\n')
@@ -169,6 +161,16 @@ class TF(object):
     def build_model(self):
         if self.params['mode'] == 'basic_dense':
             self.basic_dense()
+        else:
+            raise NotImplementedError
+
+    def plot_samples(self, mode='training_data'):
+        if mode == 'training_data':
+            log_utils.plot_image_samples(self.x_train, self.y_train, random_sample_size=4, save_loc=self.log_dir)
+        elif mode == 'testing_data':
+            classifications = np.argmax(self.model.predict(self.x_test), axis=-1)
+            log_utils.plot_pred_image_samples(self.x_test, self.y_test, classifications,
+                                              random_sample_size=4, save_loc=self.log_dir)
         else:
             raise NotImplementedError
 
@@ -183,5 +185,18 @@ if __name__ == '__main__':
 
     tf_model = TF(file_info=file_info, params=params)
     tf_model.init()
-    tf_model.build_model()
 
+    # creating the log dir
+    tf_model.log_dir = tf_model.file_info['save_loc'] + \
+                       "logs/fit/{0}_basic_dense_{1}epochs".format(tf_model.params['training_data'],
+                                                                   tf_model.params['tf_compile']['epochs']) + \
+                       tf_model.params['log_dir_suffix']
+    if Path(tf_model.log_dir).exists() and Path(tf_model.log_dir).is_dir():
+        print('log directory already exists, deleting {0}'.format(tf_model.log_dir))
+        shutil.rmtree(tf_model.log_dir)
+    print('creating log directory {0}'.format(tf_model.log_dir))
+    os.makedirs(tf_model.log_dir)
+
+    tf_model.plot_samples()
+    tf_model.build_model()
+    tf_model.plot_samples(mode='testing_data')
