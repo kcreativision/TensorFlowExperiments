@@ -1,0 +1,9 @@
+epochs,optimizer,loss_function,batchsize,optimizer_shortform,loss_function_shortform
+10,sgd,sparse_categorical_crossentropy,None,sgd,scc
+10,RMSprop,sparse_categorical_crossentropy,None,RMSprop,scc
+10,Adam,sparse_categorical_crossentropy,None,Adam,scc
+10,Adadelta,sparse_categorical_crossentropy,None,Adadelta,scc
+10,Adagrad,sparse_categorical_crossentropy,None,Adagrad,scc
+10,Adamax,sparse_categorical_crossentropy,None,Adamax,scc
+10,Nadam,sparse_categorical_crossentropy,None,Nadam,scc
+10,Ftrl,sparse_categorical_crossentropy,None,Ftrl,scc
