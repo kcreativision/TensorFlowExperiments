@@ -57,14 +57,6 @@ server <- function(input, output) {
         selectInput("batchsize", label="Choose batch size", choices=unique(params_mapping$batchsize))
     })    
     
-    # observeEvent(input$go, {
-    #     print('here')
-    #     # invalidateLater(1000)
-    #     withConsoleRedirect("console", {
-    #         str(cars)
-    #     })
-    # })
-    
     RunAndGetText <- eventReactive(input$go, {
         optimizer_shortform <- params_mapping[which(params_mapping$epochs==input$epochs &
                                                         params_mapping$optimizer==input$optimizer &
@@ -74,14 +66,10 @@ server <- function(input, output) {
                                                         params_mapping$optimizer==input$optimizer &
                                                         params_mapping$loss_function==input$loss_function &
                                                         params_mapping$batchsize==input$batchsize), ]$loss_function_shortform
-        # py_run_file("trigger_tensorflowexps.py")
         source_python("trigger_tensorflowexps.py")
-        print(paste0(optimizer_shortform, loss_function_shortform))
-        print(paste0(input$epochs, input$optimizer, optimizer_shortform, 
-                     input$loss_function, loss_function_shortform, input$batchsize))
+        
         log_dir = run_script(input$epochs, input$optimizer, optimizer_shortform, 
                    input$loss_function, loss_function_shortform, input$batchsize)
-        print(log_dir)
         readLines(paste('..', log_dir, 'train_report.txt', sep='/'))
     })
 
@@ -90,16 +78,9 @@ server <- function(input, output) {
         rawText <- RunAndGetText()
         splitText <- stringi::stri_split(str = rawText, regex = '\\n')
         replacedText <- lapply(splitText, p)
-        
         return(replacedText)
     })
-    
-    # getgraph <- eventReactive(input$go, {
-    # })
-    # 
-    # output$graph <- renderUI({
-    #     includeHTML(getgraph())
-    # })
+
 }
 
 
