@@ -1,6 +1,7 @@
 library(shiny)
 library(reticulate)
 library(stringi)
+library(shinythemes)
 use_python("/usr/bin/python")
 # py_run_file("trigger_tensorflowexps.py")
 
@@ -23,7 +24,7 @@ ui <- fluidPage(
     titlePanel("TensorFlow Experiments"),
     tags$div(tags$h4("Dataset: FMNIST")),
     tags$div(tags$h4("Layers: Flatten, Dense-128 RELU, Dense-10 SOFTMAX")),
-    tags$div(tags$h5("Change the parameters, run and visualize results")),
+    tags$div(tags$h5("Change the parameters and visualize results")),
     width=12,
     column(12, 
            fluidRow(
@@ -36,8 +37,7 @@ ui <- fluidPage(
     fluidRow(column(6, actionButton("go", "SUBMIT"), 
                     style= "color: skyblue; position: releative;left:0%")),
     br(),
-    fluidPage(uiOutput('train_report'))
-    # fluidPage(pre(id="console"))
+    fluidPage(uiOutput('train_ui'))
     # fluidRow(column(12, htmlOutput('graph')))
 )
 
@@ -73,13 +73,30 @@ server <- function(input, output) {
         readLines(paste('..', log_dir, 'train_report.txt', sep='/'))
     })
 
-    
     output$train_report <- renderUI({
         rawText <- RunAndGetText()
         splitText <- stringi::stri_split(str = rawText, regex = '\\n')
         replacedText <- lapply(splitText, p)
         return(replacedText)
     })
+    
+    
+    getPage<-function() {
+        return(tags$iframe(src = "http://localhost:6006/", style="width:100%;",  
+                           frameborder="0",id="iframe", height = "1000px", 
+                           width = "1000px"))
+    }
+    output$TensorBoard_Report<-renderUI({
+        getPage()
+    })
+    
+   output$train_ui <- renderUI({
+       navbarPage("TensorFlow Train Report", theme = shinytheme("lumen"),
+                  tabPanel("Train Log", fluid = TRUE,
+                           mainPanel(uiOutput('train_report'))),
+                  tabPanel("TensorBoard", fluid = TRUE,
+                           mainPanel(htmlOutput('TensorBoard_Report'))))
+   }) 
 
 }
 
